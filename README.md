@@ -25,5 +25,6 @@ Para imprimir variables:
 Fuentes:
 
 + http://mojolicious.org/
-+ http://search.cpan.org/~tokuhirom/UnQLite-0.03/lib/UnQLite.pm
++ https://metacpan.org/pod/UnQLite
 + https://groups.google.com/forum/#!msg/mojolicious/_HLsJeheavE/CjHnMtQaAgAJ
++ https://perlmaven.com/subroutines-and-functions-in-perl
