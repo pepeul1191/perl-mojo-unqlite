@@ -21,6 +21,13 @@ Para imprimir variables:
     #print("\n");print Dumper(%temp);print("\n");
     $log->debug("1+++++++++++++++++++++++++++++++");
 
+### Estructura de la Base de Datos
+
+    'nombre_usuario': {
+      'max_sesiones' : N,
+      'sesiones' : N
+    }, ...
+
 ---
 
 Fuentes:

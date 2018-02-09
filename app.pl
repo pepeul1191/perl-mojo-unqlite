@@ -73,6 +73,19 @@ post '/sesiones/quitar' => sub {
   $c->render(text => 'TODO');
 };
 
+get '/obtener' => sub {
+  my $c = shift;
+  my $key = $c->param('key');
+  my $db = conn();
+  my $value = $db->kv_fetch($key);
+  undef $db;
+  if ($value eq ''){
+    $c->render(text => 'No existe dato asociado a la llave "' . $key . '"');
+  }else{
+    $c->render(text => Encode::decode('utf8', $value));
+  }
+};
+
 # -----------------------------------------------------------------------------
 
 post '/grabar' => sub {
@@ -100,19 +113,6 @@ post '/agregar' => sub {
     $db->kv_store($key, Encode::decode('utf8', JSON::to_json \@names));
     undef $db;
     $c->render(text => 'Editado');
-  }
-};
-
-get '/obtener' => sub {
-  my $c = shift;
-  my $key = $c->param('key');
-  my $db = conn();
-  my $value = $db->kv_fetch($key);
-  undef $db;
-  if ($value eq ''){
-    $c->render(text => 'No existe dato asociado a la llave "' . $key . '"');
-  }else{
-    $c->render(text => Encode::decode('utf8', $value));
   }
 };
 
