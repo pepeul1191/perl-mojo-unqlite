@@ -30,6 +30,51 @@ get '/' => sub {
   $c->render(text => 'Error: URL Vacía');
 };
 
+get '/test/conexion' => sub {
+  my $c = shift;
+  $c->render(text => 'Conexión Ok');
+};
+
+post '/crear' => sub {
+  my $c = shift;
+  my %value = ();
+  $value{'max_sesiones'} = $c->param('max_sesiones');
+  $value{'sesiones'} = $c->param('sesiones');
+  my $key = $c->param('usuario');
+  my $db = conn();
+  my $_id = $db->kv_store($key, JSON::to_json \%value);
+  undef $db;
+  # TODO :
+  # + Try catch y devolver mensaje JSON de error o confiramación
+  $c->render(text => $_id);
+};
+
+post '/max_sesiones/modificar' => sub {
+  # query params : usuario, max_sesiones
+  my $c = shift;
+  $c->render(text => 'TODO');
+};
+
+post '/sesiones/agregar' => sub {
+  # query params : usuario
+  # TODO :
+  # + Try catch y devolver mensaje JSON de error o confiramación
+  # + Agregar una sesión siempre y cuando no supere su máximo
+  my $c = shift;
+  $c->render(text => 'TODO');
+};
+
+post '/sesiones/quitar' => sub {
+  # query params : usuario
+  # TODO :
+  # + Try catch y devolver mensaje JSON de error o confiramación
+  # + Quitar sesión
+  my $c = shift;
+  $c->render(text => 'TODO');
+};
+
+# -----------------------------------------------------------------------------
+
 post '/grabar' => sub {
   my $c = shift;
   my $key = $c->param('key');
