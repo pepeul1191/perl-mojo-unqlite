@@ -19,6 +19,7 @@ Para imprimir variables:
 
     #print("\nA\n");print($url);print("\nB\n");
     #print("\n");print Dumper(%temp);print("\n");
+    $log->debug("1+++++++++++++++++++++++++++++++");
 
 ---
 

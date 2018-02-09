@@ -3,10 +3,16 @@ use warnings;
 use Mojolicious::Lite -signatures;
 use Mojo::Log;
 use UnQLite;
+use utf8;
+use Encode;
+use JSON;
+use JSON::XS;
+binmode STDOUT, ':utf8';
 
 sub conn {
   return UnQLite->open('db/demo.db', UnQLite::UNQLITE_OPEN_READWRITE|UnQLite::UNQLITE_OPEN_CREATE);
 }
+
 my $log = Mojo::Log->new;
 
 app->hook(after_dispatch => sub {
@@ -28,6 +34,7 @@ post '/grabar' => sub {
   my $c = shift;
   my $key = $c->param('key');
   my $value = $c->param('value');
+  $c->render(text => $value);
   my $db = conn();
   my $_id = $db->kv_store($key, $value);
   undef $db;
@@ -42,7 +49,7 @@ get '/obtener' => sub {
   if ($value eq ''){
     $c->render(text => 'No existe dato asociado a la llave "' . $key . '"');
   }else{
-    $c->render(text => $value);
+    $c->render(text => Encode::decode('utf8', $value));
   }
 };
 
